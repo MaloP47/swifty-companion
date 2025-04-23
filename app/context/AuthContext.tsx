@@ -20,7 +20,7 @@ WebBrowser.maybeCompleteAuthSession();
 interface User {
   name: string;
   login: string;
-  // Add other user properties as needed
+  // Need to add other properties
 }
 
 interface AuthContextType {

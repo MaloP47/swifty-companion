@@ -15,8 +15,7 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
-  const { user, loading, signOut } = useContext(AuthContext);
-  if (loading) return null;
+  const { user, logout } = useContext(AuthContext)!;
 
   return (
     <Stack.Navigator>

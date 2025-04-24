@@ -1,5 +1,4 @@
 // app/login.tsx
-import React, { useContext } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useAuth } from "./context/AuthContext";
 
@@ -8,7 +7,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to 42 OAuth Demo</Text>
+      <Text style={styles.title}>Welcome to Swifty-Companion</Text>
       <TouchableOpacity style={styles.button} onPress={login}>
         <Text style={styles.buttonText}>Login with 42</Text>
       </TouchableOpacity>

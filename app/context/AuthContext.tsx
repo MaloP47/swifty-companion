@@ -13,7 +13,6 @@ import {
   useAuthRequest,
   exchangeCodeAsync,
 } from "expo-auth-session";
-import { Platform } from "react-native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -31,7 +30,9 @@ interface AuthContextType {
   isLoading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -39,7 +40,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [loginAttempted, setLoginAttempted] = useState(false);
 
   const SCOPES = Constants.expoConfig?.extra?.SCOPES;
   const CLIENT_ID = Constants.expoConfig?.extra?.UID;
@@ -110,35 +110,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const data: User = await resp.json();
       setUser({ name: data.login, login: data.login });
       setIsAuthenticated(true);
-      setLoginAttempted(false);
     } catch (error) {
       console.error("Fetch user info error:", error);
       await SecureStore.deleteItemAsync("access_token");
       setUser(null);
       setIsAuthenticated(false);
-      setLoginAttempted(false);
     }
   };
 
   const login = async () => {
-    // if (loginAttempted) {
-    //   return;
-    // }
+    console.log("Login");
 
     try {
       if (!request) {
         console.warn("OAuth request not ready");
         return;
       }
-      setLoginAttempted(true);
       const result = await promptAsync();
       if (result?.type === "cancel") {
         console.log("Login cancelled");
-        setLoginAttempted(false);
       }
     } catch (error) {
       console.error("Login error:", error);
-      setLoginAttempted(false);
     }
   };
 
@@ -147,7 +140,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       await SecureStore.deleteItemAsync("access_token");
       setUser(null);
       setIsAuthenticated(false);
-      setLoginAttempted(false);
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -164,6 +156,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+  console.log(context?.user?.name);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }

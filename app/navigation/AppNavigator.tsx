@@ -1,6 +1,5 @@
-// app/navigation/AppNavigator.tsx
 import React, { useContext } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack"; // natif :contentReference[oaicite:8]{index=8}
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthContext } from "../../context/AuthContext";
 import LoginScreen from "../LoginScreen";
 import HomeScreen from "../HomeScreen";

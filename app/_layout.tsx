@@ -16,12 +16,6 @@ function RootLayoutNav() {
   }
 
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={require("../assets/images/42bis.jpg")}
-      style={{ flex: 1 }}
-    >
-      <StatusBar style="dark" />
       <Stack>
         <Stack.Screen
           name="index"
@@ -32,16 +26,13 @@ function RootLayoutNav() {
         <Stack.Screen name="HomeScreen" options={{ headerShown: false }} />
         <Stack.Screen name="OtherScreen" options={{ headerShown: false }} />
       </Stack>
-    </ImageBackground>
   );
 }
 
 export default function RootLayout() {
   return (
-    <>
       <AuthProvider>
         <RootLayoutNav />
       </AuthProvider>
-    </>
   );
 }

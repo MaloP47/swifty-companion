@@ -2,9 +2,9 @@
 import React, { useContext } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router"; // hook router :contentReference[oaicite:4]{index=4}
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { router } from "expo-router";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function OtherScreen() {
   const { user, logout } = useAuth();

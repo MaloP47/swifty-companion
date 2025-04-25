@@ -1,8 +1,9 @@
 // app/home.tsx
 import React, { useContext } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { router } from "expo-router";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+
 
 export default function HomeScreen() {
   const { logout, user } = useAuth();
@@ -14,7 +15,18 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome, {user?.login || "User"}!</Text>
+      <Image
+        source={
+          user?.imageURL
+            ? { uri: user.imageURL }
+            : require("../assets/images/randomHacker.jpg")
+        }
+        style={styles.profileImage}
+      />
+      <Text style={styles.title}>Welcome, {user?.displayname || "User"}!</Text>
+      <Text style={styles.title}>Login: {user?.login}</Text>
+      <Text style={styles.title}>Level: {user?.level}</Text>
+      <Text style={styles.title}>Wallet: {user?.wallet || "0"}₳</Text>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -68,5 +80,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: "#00babc",
   },
 });

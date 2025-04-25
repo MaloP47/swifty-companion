@@ -17,9 +17,11 @@ import {
 WebBrowser.maybeCompleteAuthSession();
 
 interface User {
-  name: string;
+  displayname: string;
   login: string;
-  // Need to add other properties
+  level: string;
+  wallet: string;
+  imageURL: string;
 }
 
 interface AuthContextType {
@@ -104,11 +106,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchUserInfo = async (token: string) => {
     try {
+      console.log(token);
       const resp = await fetch("https://api.intra.42.fr/v2/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data: User = await resp.json();
-      setUser({ name: data.login, login: data.login });
+      const data = await resp.json();
+
+      const mainCursus = data.cursus_users.find(
+        (cursus: any) => cursus.cursus_id === 21
+      );
+      setUser({
+        displayname: data.displayname,
+        login: data.login,
+        wallet: data.wallet,
+        level: mainCursus?.level.toFixed(2) ?? "N/A",
+        imageURL: data.image.link,
+      });
       setIsAuthenticated(true);
     } catch (error) {
       console.error("Fetch user info error:", error);
@@ -119,8 +132,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const login = async () => {
-    console.log("Login");
-
     try {
       if (!request) {
         console.warn("OAuth request not ready");
@@ -156,7 +167,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  console.log(context?.user?.name);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }

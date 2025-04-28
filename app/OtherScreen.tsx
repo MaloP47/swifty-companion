@@ -149,14 +149,14 @@ export default function OtherScreen() {
                     ?.filter(
                       (project: any) =>
                         project.status === "finished" &&
-                        project.validated === false
+                        project["validated?"] === false
                     )
                     .map((project: any, index: number) => (
                       <View key={index} style={styles.projectItem}>
                         <Text style={styles.projectName}>
                           {project.project.name}
                         </Text>
-                        <Text style={styles.projectGrade}>
+                        <Text style={styles.projectGradeFailed}>
                           Grade: {project.final_mark}
                         </Text>
                       </View>
@@ -312,6 +312,11 @@ const styles = StyleSheet.create({
   projectGrade: {
     fontSize: 14,
     color: "#00babc",
+    marginBottom: 5,
+  },
+  projectGradeFailed: {
+    fontSize: 14,
+    color: "red",
     marginBottom: 5,
   },
   projectStatus: {

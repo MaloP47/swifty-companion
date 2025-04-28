@@ -95,6 +95,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
               "access_token",
               tokenResponse.accessToken
             );
+            if (tokenResponse.expiresIn) {
+              const expiryInMinutes = Math.floor(tokenResponse.expiresIn / 60);
+              console.log(`Token will expire in ${expiryInMinutes} minutes`);
+            }
             await fetchUserInfo(tokenResponse.accessToken);
           }
         } catch (error) {

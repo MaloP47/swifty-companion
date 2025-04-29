@@ -1,12 +1,7 @@
 // app/_layout.tsx
 import { Stack } from "expo-router";
 import { AuthProvider, useAuth } from "../context/AuthContext";
-import {
-  ActivityIndicator,
-  View,
-  ImageBackground,
-  SafeAreaView,
-} from "react-native";
+import { ActivityIndicator, View, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 function RootLayoutNav() {
@@ -21,25 +16,15 @@ function RootLayoutNav() {
   }
 
   return (
-    <ImageBackground
-      source={require("../assets/images/42bis.jpg")}
-      style={{ flex: 1 }}
-      resizeMode="cover"
-    >
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar style="light" />
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{ headerShown: false }}
-            redirect={!isAuthenticated}
-          />
-          <Stack.Screen name="LoginScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="HomeScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="OtherScreen" options={{ headerShown: false }} />
-        </Stack>
-      </SafeAreaView>
-    </ImageBackground>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="LoginScreen" />
+        <Stack.Screen name="HomeScreen" />
+        <Stack.Screen name="OtherScreen" />
+      </Stack>
+    </SafeAreaView>
   );
 }
 

@@ -13,6 +13,7 @@ import {
   useAuthRequest,
   exchangeCodeAsync,
 } from "expo-auth-session";
+import { router } from "expo-router";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -100,9 +101,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
               console.log(`Token will expire in ${expiryInMinutes} minutes`);
             }
             await fetchUserInfo(tokenResponse.accessToken);
+            setIsAuthenticated(true);
           }
         } catch (error) {
-          console.error("Token exchange error:", error);
+          console.log("Token exchange error:", error);
+          setIsAuthenticated(false);
         }
       })();
     }
@@ -128,7 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       setIsAuthenticated(true);
     } catch (error) {
-      console.error("Fetch user info error:", error);
+      console.log("Fetch user info error:", error);
       await SecureStore.deleteItemAsync("access_token");
       setUser(null);
       setIsAuthenticated(false);
@@ -144,9 +147,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const result = await promptAsync();
       if (result?.type === "cancel") {
         console.log("Login cancelled");
+        setIsAuthenticated(false);
+        router.replace("/HomeScreen");
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.log("Login error:", error);
+      setIsAuthenticated(false);
     }
   };
 
@@ -156,7 +162,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser(null);
       setIsAuthenticated(false);
     } catch (error) {
-      console.error("Logout error:", error);
+      console.log("Logout error:", error);
     }
   };
 

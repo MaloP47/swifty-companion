@@ -8,10 +8,16 @@ import {
   ImageBackground,
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
   const { login } = useAuth();
+
+  const handleLogin = async () => {
+    await login();
+    router.replace("/HomeScreen");
+  }
 
   return (
     // <SafeAreaView style={styles.safe}>
@@ -21,7 +27,7 @@ export default function LoginScreen() {
     //   >
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Swifty-Companion</Text>
-      <TouchableOpacity style={styles.button} onPress={login}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login with 42</Text>
       </TouchableOpacity>
     </View>

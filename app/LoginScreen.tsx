@@ -1,4 +1,3 @@
-// app/login.tsx
 import {
   View,
   Text,

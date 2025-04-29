@@ -1,4 +1,3 @@
-// app/home.tsx
 import React, { useContext, useState } from "react";
 import {
   View,

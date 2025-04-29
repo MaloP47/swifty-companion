@@ -1,4 +1,3 @@
-// app/other.tsx
 import React from "react";
 import {
   View,
@@ -178,14 +177,14 @@ export default function OtherScreen() {
                     ?.find((cursus: any) => cursus.cursus.name === "42cursus")
                     ?.skills?.map((skill: any, index: number) => {
                       const percentage = (skill.level / 30) * 100;
-                      let color = "#FF0000"; // Default red
-                      if (percentage >= 100) color = "#00FF00"; // Green
+                      let color = "#FF0000";
+                      if (percentage >= 100) color = "#00FF00";
                       else if (percentage >= 75)
-                        color = "#90EE90"; // Light green
-                      else if (percentage >= 50) color = "#FFFF00"; // Yellow
-                      else if (percentage >= 30) color = "#FFA500"; // Orange
-                      else if (percentage >= 20) color = "#FF6347"; // Tomato
-                      else if (percentage >= 10) color = "#FF4500"; // Orange red
+                        color = "#90EE90";
+                      else if (percentage >= 50) color = "#FFFF00";
+                      else if (percentage >= 30) color = "#FFA500";
+                      else if (percentage >= 20) color = "#FF6347";
+                      else if (percentage >= 10) color = "#FF4500";
 
                       return (
                         <View key={index} style={styles.skillItem}>

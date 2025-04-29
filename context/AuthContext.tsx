@@ -13,7 +13,6 @@ import {
   useAuthRequest,
   exchangeCodeAsync,
 } from "expo-auth-session";
-import { router } from "expo-router";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -148,7 +147,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (result?.type === "cancel") {
         console.log("Login cancelled");
         setIsAuthenticated(false);
-        router.replace("/HomeScreen");
       }
     } catch (error) {
       console.log("Login error:", error);

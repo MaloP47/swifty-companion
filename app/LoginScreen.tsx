@@ -8,25 +8,25 @@ import {
   ImageBackground,
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 export default function LoginScreen() {
   const { login } = useAuth();
 
+  const handleLogin = async () => {
+    await login();
+    router.replace("/HomeScreen");
+  }
+
   return (
-    // <SafeAreaView style={styles.safe}>
-    //   <ImageBackground
-    //     source={require("../assets/images/42bis.jpg")}
-    //     style={{ zIndex: -1000, flex: 1 }}
-    //   >
+
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Swifty-Companion</Text>
-      <TouchableOpacity style={styles.button} onPress={login}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login with 42</Text>
       </TouchableOpacity>
     </View>
-    //   </ImageBackground>
-    // </SafeAreaView>
+
   );
 }
 

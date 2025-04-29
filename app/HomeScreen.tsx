@@ -64,7 +64,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <View style={styles.backButton} />
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Ionicons name="log-out-outline" size={24} color="white" />
+          <Ionicons name="log-out-outline" size={24} color="black" />
         </TouchableOpacity>
       </View>
 
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     padding: 10,
+    color: "blue",
   },
   searchContainer: {
     flexDirection: "row",

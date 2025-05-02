@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  ImageBackground,
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
 import { router } from "expo-router";
@@ -30,13 +29,7 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    justifyContent: "center",
-    paddingTop: Platform.OS === "android" ? -60 : -50,
-    paddingBottom: -50,
-    backgroundColor: "pink",
-  },
+
   container: {
     flex: 1,
     justifyContent: "center",
@@ -49,6 +42,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 30,
     color: "#333",
+    textAlign: "center",
   },
   button: {
     backgroundColor: "#00babc",

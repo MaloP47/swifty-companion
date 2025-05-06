@@ -13,6 +13,7 @@ import {
   useAuthRequest,
   exchangeCodeAsync,
 } from "expo-auth-session";
+import { router } from "expo-router";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -238,6 +239,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getValidAccessToken = async () => {
     const token = await SecureStore.getItemAsync("access_token");
+    console.log("bbbbb", token);
     const expiry = await SecureStore.getItemAsync("token_expiry");
     if (token && expiry) {
       const expiresAt = parseInt(expiry);
@@ -276,6 +278,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         console.log("Login cancelled");
         setIsAuthenticated(false);
       }
+      setIsAuthenticated(true);
+      router.replace("/HomeScreen");
     } catch (error) {
       console.log("Login error:", error);
       setIsAuthenticated(false);
@@ -285,10 +289,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = async () => {
     try {
       await SecureStore.deleteItemAsync("access_token");
+      const test = SecureStore.getItemAsync("access_token");
+      console.log("qslkfqlksfh", test);
       await SecureStore.deleteItemAsync("refresh_token");
       await SecureStore.deleteItemAsync("token_expiry");
       setUser(null);
       setIsAuthenticated(false);
+      router.replace("/LoginScreen");
     } catch (error) {
       console.log("Logout error:", error);
     }

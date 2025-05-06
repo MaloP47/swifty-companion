@@ -13,25 +13,19 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     await login();
-    if (isAuthenticated) {
-        router.replace("/HomeScreen");
-    }
-  }
+  };
 
   return (
-
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Swifty-Companion</Text>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login with 42</Text>
       </TouchableOpacity>
     </View>
-
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     justifyContent: "center",

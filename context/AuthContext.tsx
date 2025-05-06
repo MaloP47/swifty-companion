@@ -277,20 +277,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (result?.type === "cancel") {
         console.log("Login cancelled");
         setIsAuthenticated(false);
+        router.replace("/LoginScreen");
+        return;
       }
-      setIsAuthenticated(true);
-      router.replace("/HomeScreen");
+      if (result?.type === "success") {
+        setIsAuthenticated(true);
+        router.replace("/HomeScreen");
+      }
     } catch (error) {
       console.log("Login error:", error);
       setIsAuthenticated(false);
+      router.replace("/LoginScreen");
     }
   };
 
   const logout = async () => {
     try {
       await SecureStore.deleteItemAsync("access_token");
-      const test = SecureStore.getItemAsync("access_token");
-      console.log("qslkfqlksfh", test);
+      const test = await SecureStore.getItemAsync("access_token");
+      console.log("After deletion, access_token:", test); // Should be null
       await SecureStore.deleteItemAsync("refresh_token");
       await SecureStore.deleteItemAsync("token_expiry");
       setUser(null);

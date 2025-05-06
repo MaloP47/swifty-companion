@@ -9,11 +9,13 @@ import { useAuth } from "../context/AuthContext";
 import { router } from "expo-router";
 
 export default function LoginScreen() {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
   const handleLogin = async () => {
     await login();
-    router.replace("/HomeScreen");
+    if (isAuthenticated) {
+        router.replace("/HomeScreen");
+    }
   }
 
   return (
